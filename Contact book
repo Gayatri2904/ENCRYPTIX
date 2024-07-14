@@ -1,0 +1,74 @@
+contact = {}
+
+def display_contact():
+    print("Name\t\tPhone Number\t\tEmail\t\tAddress")
+
+    for name, details in contact.items():
+        phone, email, address = details
+        print(f"{name}\t\t{phone}\t\t{email}\t\t{address}")
+
+while True:
+    print("\nMenu:")
+    print("1. Add new contact")
+    print("2. Search contact")
+    print("3. Display all contacts")
+    print("4. update contact")
+    print("5. Delete contact")
+    print("6. Exit")
+
+    choice = int(input("Enter your choice: "))
+
+    if choice == 1:
+        name = input("Enter the contact name: ")
+        phone = input("Enter the mobile number: ")
+        email = input("Enter the email: ")
+        address = input("Enter the address: ")
+        contact[name] = (phone, email, address)
+        print("Contact added successfully.")
+
+    elif choice == 2:
+        search_name = input("Enter the contact name to search: ")
+        if search_name in contact:
+            details = contact[search_name]
+            print(f"Contact details for {search_name}:")
+            print(f"Phone Number: {details[0]}")
+            print(f"Email: {details[1]}")
+            print(f"Address: {details[2]}")
+        else:
+            print(f"Contact '{search_name}' not found.")
+
+    elif choice == 3:
+        if not contact:
+            print("Contact book is empty.")
+        else:
+            display_contact()
+
+    elif choice == 4:
+        update_contact = input("Enter the contact name to update: ")
+        if update_contact in contact:
+            phone = input("Enter new mobile number: ")
+            email = input("Enter new email: ")
+            address = input("Enter new address: ")
+            contact[update_contact] = (phone, email, address)
+            print(f"Contact '{update_contact}' updated successfully.")
+            display_contact()
+        else:
+            print(f"Contact '{update_contact}' not found.")
+
+    elif choice == 5:
+        del_contact = input("Enter the contact name to delete: ")
+        if del_contact in contact:
+            confirm = input(f"Do you want to delete '{del_contact}' (y/n)? ")
+            if confirm.lower() == 'y':
+                contact.pop(del_contact)
+                print(f"Contact '{del_contact}' deleted successfully.")
+            display_contact()
+        else:
+            print(f"Contact '{del_contact}' not found.")
+
+    elif choice == 6:
+        print("Exit program")
+        break
+
+    else:
+        print("Invalid choice. Please enter a number between 1 and 6.")
